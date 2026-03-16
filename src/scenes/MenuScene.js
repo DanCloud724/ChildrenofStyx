@@ -19,6 +19,9 @@ export class MenuScene extends Phaser.Scene {
         this.load.spritesheet('athena', 'assets/gods/Sprites/GoddessAthena-Sheet.png', {
             frameWidth: 64, frameHeight: 64
         });
+
+        // Preload background music so it's ready for GameScene
+        this.load.audio('bgm', 'assets/ancient-drum-loop.mp3');
     }
 
     create() {

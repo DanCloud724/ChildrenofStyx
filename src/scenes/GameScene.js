@@ -60,9 +60,14 @@ export class GameScene extends Phaser.Scene {
 
         this.createCity();
 
-        // Background music (low volume, looping)
+        // Background music (looping)
         if (!this.sound.get('bgm')) {
-            this.sound.add('bgm', { loop: true, volume: 0.15 }).play();
+            const bgm = this.sound.add('bgm', { loop: true, volume: 0.35 });
+            if (this.sound.locked) {
+                this.sound.once('unlocked', () => bgm.play());
+            } else {
+                bgm.play();
+            }
         }
 
         // God/goddess animations (one idle anim per type)
