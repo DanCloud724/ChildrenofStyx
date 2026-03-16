@@ -262,6 +262,7 @@ export class GameScene extends Phaser.Scene {
             }
         }
 
+        this.riverContainer = this.add.container(0, 0).setDepth(-2);
         this.factionDecorationContainer = this.add.container(0, 0).setDepth(50);
     }
 
@@ -379,7 +380,7 @@ export class GameScene extends Phaser.Scene {
                 tx * TILE_SIZE + TILE_SIZE / 2, ty * TILE_SIZE + TILE_SIZE / 2,
                 TILE_SIZE, TILE_SIZE, 0xc2a060, 1
             ).setDepth(-1);
-            this.factionDecorationContainer.add(shore);
+            this.riverContainer.add(shore);
         }
 
         // Place water tiles
@@ -390,7 +391,7 @@ export class GameScene extends Phaser.Scene {
                 tx * TILE_SIZE, ty * TILE_SIZE,
                 'terrain', WATER_FRAME
             ).setOrigin(0, 0);
-            this.factionDecorationContainer.add(img);
+            this.riverContainer.add(img);
         }
     }
 
@@ -409,13 +410,13 @@ export class GameScene extends Phaser.Scene {
             const worldY = cornerY - shopPixelH / 2;
             this.placeTilesInContainer(worldX, worldY, 'buildings', BUILDING_COLS, 1, 0, shopTilesW, shopTilesH);
         } else {
-            const templeTilesW = 4;
-            const templeTilesH = 5;
+            const templeTilesW = 5;
+            const templeTilesH = 6;
             const templePixelW = templeTilesW * TILE_SIZE;
             const templePixelH = templeTilesH * TILE_SIZE;
             const worldX = cornerX - templePixelW / 2;
             const worldY = cornerY - templePixelH / 2;
-            this.placeTilesInContainer(worldX, worldY, 'buildings', BUILDING_COLS, 33, 3, templeTilesW, templeTilesH);
+            this.placeTilesInContainer(worldX, worldY, 'buildings', BUILDING_COLS, 33, 2, templeTilesW, templeTilesH);
         }
         this.buildingsPlacedCount[leading]++;
     }
