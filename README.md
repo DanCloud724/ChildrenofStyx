@@ -71,6 +71,11 @@ ChildrenofStyx/
 └── vite.config.js
 ```
 
+## Asset Credits
+
+- [Land of Pixels – Ancient Greeks Inspired Tileset](https://marceles.itch.io/land-of-pixels-ancient-greeks-inspired-tileset-top-down) by Marceles
+- [Greek Temple & Statue Assets](https://captainskolot.itch.io/greek-temple-statue-assets-pixelart-pixel-art-sprite-chest-pack-for-rpg-fant) by CaptainSkolot
+
 ## License
 
 Use whatever license your jam requires.
