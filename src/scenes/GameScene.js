@@ -224,7 +224,7 @@ export class GameScene extends Phaser.Scene {
         });
         const terrainSet = map.addTilesetImage('terrain_tiles', 'terrain', TILE_SIZE, TILE_SIZE);
         const ground = map.createBlankLayer('ground', terrainSet);
-        ground.setDepth(-3);
+        ground.setDepth(-4);
 
         // Green background for grass
         this.cameras.main.setBackgroundColor('#4a7a45');
@@ -233,32 +233,35 @@ export class GameScene extends Phaser.Scene {
         ground.fill(65);
         ground.setAlpha(0.6);
 
-        // Sandy path tiles (row 0, cols 3-4 of terrain)
+        // Walkway paths on a separate layer above rivers but below characters
+        const paths = map.createBlankLayer('paths', terrainSet);
+        paths.setDepth(-1);
+
         const pathTile = this.tFrame(3, 0);
         const pathTile2 = this.tFrame(4, 0);
 
         // Central horizontal road
         for (let x = 2; x < W - 2; x++) {
-            ground.putTileAt(pathTile, x, 11);
-            ground.putTileAt(pathTile2, x, 12);
+            paths.putTileAt(pathTile, x, 11);
+            paths.putTileAt(pathTile2, x, 12);
         }
 
         // Vertical road from top to center
         for (let y = 2; y < 13; y++) {
-            ground.putTileAt(pathTile, 19, y);
-            ground.putTileAt(pathTile2, 20, y);
+            paths.putTileAt(pathTile, 19, y);
+            paths.putTileAt(pathTile2, 20, y);
         }
 
         // Vertical road from center to bottom
         for (let y = 11; y < H - 1; y++) {
-            ground.putTileAt(pathTile, 10, y);
-            ground.putTileAt(pathTile2, 11, y);
+            paths.putTileAt(pathTile, 10, y);
+            paths.putTileAt(pathTile2, 11, y);
         }
 
         // Central plaza area
         for (let x = 16; x < 24; x++) {
             for (let y = 9; y < 14; y++) {
-                ground.putTileAt(pathTile, x, y);
+                paths.putTileAt(pathTile, x, y);
             }
         }
 
