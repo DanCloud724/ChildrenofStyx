@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node -e \"require('fs').cpSync('assets','dist/assets',{recursive:true})\"",
     "preview": "vite preview"
   },
   "keywords": [],
