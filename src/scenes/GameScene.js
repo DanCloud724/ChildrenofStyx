@@ -779,9 +779,10 @@ export class GameScene extends Phaser.Scene {
 
     addEndScreenCredits(cx, cy) {
         const creditsText =
-            'Designed by Lipson Creative Media LLC\n\n' +
+            'Designed by Lipson Creative Media LLC | Built with Phaser 3 + Vite\n' +
             'Tileset: Land of Pixels – Ancient Greeks by Marceles\n' +
-            'Sprites: Greek Temple & Statue Assets by CaptainSkolot';
+            'Sprites: Greek Temple & Statue Assets by CaptainSkolot\n' +
+            'Built for the SF Gen AI Game Jam | Hosted by Arcade AI | Sponsored by Bytedance and Tripo AI';
 
         this.add.text(cx, cy + 160, creditsText, {
             fontSize: '13px',

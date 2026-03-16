@@ -148,6 +148,72 @@ export class MenuScene extends Phaser.Scene {
         tutBtn.on('pointerover', () => tutBtn.setColor('#ffffff'));
         tutBtn.on('pointerout', () => tutBtn.setColor('#ffd700'));
         tutBtn.on('pointerdown', () => this.showTutorial());
+
+        // Credits button (bottom left)
+        const creditsBtn = this.add.text(20, 700, 'Credits', {
+            fontSize: '14px',
+            color: '#ffd700',
+            backgroundColor: '#2a2a4a',
+            padding: { x: 10, y: 4 }
+        }).setOrigin(0, 1).setInteractive({ useHandCursor: true });
+
+        creditsBtn.on('pointerover', () => creditsBtn.setColor('#ffffff'));
+        creditsBtn.on('pointerout', () => creditsBtn.setColor('#ffd700'));
+        creditsBtn.on('pointerdown', () => this.showCredits());
+    }
+
+    showCredits() {
+        if (this.creditsContainer) return;
+
+        const cx = 640, cy = 360;
+        const w = 500, h = 380;
+
+        this.creditsContainer = this.add.container(0, 0).setDepth(100);
+
+        const overlay = this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.6)
+            .setInteractive();
+        this.creditsContainer.add(overlay);
+
+        const bg = this.add.rectangle(cx, cy, w, h, 0x1a1a2e)
+            .setStrokeStyle(3, 0xffd700);
+        this.creditsContainer.add(bg);
+
+        const title = this.add.text(cx, cy - h / 2 + 30, 'Credits', {
+            fontSize: '28px',
+            color: '#ffd700',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+        this.creditsContainer.add(title);
+
+        const creditsText =
+            'Designed by Lipson Creative Media LLC\n\n' +
+            'Built with Phaser 3 + Vite\n\n' +
+            'Tileset: Land of Pixels – Ancient Greeks by Marceles\n' +
+            'Sprites: Greek Temple & Statue Assets by CaptainSkolot\n\n' +
+            'Built for the SF Gen AI Game Jam\n' +
+            'Hosted by Arcade AI\n' +
+            'Sponsored by Bytedance and Tripo AI';
+
+        const body = this.add.text(cx, cy + 20, creditsText, {
+            fontSize: '14px',
+            color: '#cccccc',
+            align: 'center',
+            lineSpacing: 4
+        }).setOrigin(0.5);
+        this.creditsContainer.add(body);
+
+        const closeBtn = this.add.text(cx + w / 2 - 20, cy - h / 2 + 10, 'X', {
+            fontSize: '24px',
+            color: '#ff3333',
+            fontStyle: 'bold'
+        }).setOrigin(0.5, 0).setInteractive({ useHandCursor: true });
+        closeBtn.on('pointerover', () => closeBtn.setColor('#ff6666'));
+        closeBtn.on('pointerout', () => closeBtn.setColor('#ff3333'));
+        closeBtn.on('pointerdown', () => {
+            this.creditsContainer.destroy();
+            this.creditsContainer = null;
+        });
+        this.creditsContainer.add(closeBtn);
     }
 
     showTutorial() {
