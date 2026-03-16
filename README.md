@@ -2,15 +2,19 @@
 
 A 2D simulation game built with **Phaser 3** for the Arcade Gen AI Jam. Choose a Greek god faction, interact with rivals through diplomacy or violence, and shape an ancient city as factions compete for fame.
 
+## Story
+
+You have just overthrown your father, the God Chronos, and have taken over the mortal world. Under the guidance of the four children of the Goddess Styx, you must guide the mortals to build your ideal society. Who will you follow? How will you rule?
+
 ## Gameplay
 
 - **Choose your champion** — Zeus, Poseidon, or Athena
 - **Interact each round** — pick a rival faction and choose Violence or Praise
 - **Stats drive outcomes** — each character has four stats named after the children of the river Styx:
-  - **Nike (Fame)** — Reputation and life force. Game over if the player's hits 0. Rises with wins and praise, falls with losses.
-  - **Zelus (Rivalry)** — How tense and confrontational they are. Raises the chance of violence in encounters. Falls when someone wins; rises when someone loses.
+  - **Nike (Fame)** — Reputation and life force; game over if the player's hits 0. Rises with wins and praise, falls with losses.
+  - **Zelus (Rivalry)** — How tense/confrontational they are. Raises the chance of violence (NPC–NPC and "opponent chooses Violence"). Falls when someone wins; rises when someone loses.
   - **Kratos (Power)** — Combat strength; decides who wins violent fights (equal power = player wins). Only changes from winning fights or being praised by the same faction.
-  - **Bia (Violence)** — Aggression; high Bia means less likely to accept praise and more likely to choose Violence. Rises with wins, falls with praise and losses.
+  - **Bia (Violence)** — Aggression; high Bia = less likely to accept praise and more likely to "choose Violence." Rises with wins, falls with praise and losses.
 - **Shape the city** — the leading faction leaves its mark after each round:
   - **Zeus** places temples
   - **Poseidon** carves winding rivers across the map
