@@ -1,65 +1,66 @@
-# Arcade Gen AI Jam
+# Children of Styx
 
-3D browser game built with **Tripo AI** (3D models) and **Seedance** (video/cinematics), for the Arcade Gen AI Jam.
+A 2D simulation game built with **Phaser 3** for the Arcade Gen AI Jam. Choose a Greek god faction, interact with rivals through diplomacy or violence, and shape an ancient city as factions compete for fame.
+
+## Gameplay
+
+- **Choose your champion** — Zeus, Poseidon, or Athena
+- **Interact each round** — pick a rival faction and choose Violence or Praise
+- **Stats drive outcomes** — four stats (Fame, Rivalry, Power, Violence) evolve based on your choices
+- **Shape the city** — the leading faction leaves its mark after each round:
+  - **Zeus** places temples
+  - **Poseidon** carves winding rivers across the map
+  - **Athena** builds market shops
+- **Win condition** — after 10 rounds, the faction with the most buildings wins
 
 ## Stack
 
-- **Vite** – dev server and build
-- **Three.js** – 3D rendering in the browser
-- **Tripo AI** – text/image to 3D model generation
-- **Seedance** – AI video for cutscenes or cinematics
+- **Phaser 3** – 2D game framework (arcade physics, tilemaps, sprites)
+- **Vite** – dev server and production build
 
 ## Setup
 
 1. **Clone and install**
 
    ```bash
-   cd ArcadeGenAIJam
-   yarn install
-   # or: npm install
+   git clone https://github.com/DanCloud724/ChildrenofStyx.git
+   cd ChildrenofStyx
+   npm install
    ```
 
-2. **API keys**
-
-   - Copy `.env.example` to `.env`
-   - Add your Tripo and Seedance API keys in `.env`
-   - Do not commit `.env` (it’s in `.gitignore`)
-
-3. **Run locally**
+2. **Run locally**
 
    ```bash
-   yarn dev
-   # or: npm run dev
+   npm run dev
    ```
 
-   Open the URL shown in the terminal (e.g. http://localhost:5173).
+   Open the URL shown in the terminal (default: http://localhost:8080).
 
-4. **Build for production**
+3. **Build for production**
 
    ```bash
-   yarn build
-   # or: npm run build
+   npm run build
    ```
 
-   Output is in `dist/`. You can host that folder on GitHub Pages, Netlify, or any static host.
-
-## GitHub
-
-- **Repo:** [github.com/dancloud626/ArcadeGenAIJam](https://github.com/dancloud626/ArcadeGenAIJam)
-- Push your branch and open a PR, or push to `main` if you’re working solo.
-- For the jam, make sure the repo is public and the game is playable (e.g. via GitHub Pages or a hosted build).
+   Output is in `dist/`.
 
 ## Project layout
 
 ```
-ArcadeGenAIJam/
-├── index.html          # Entry HTML
+ChildrenofStyx/
+├── index.html              # Entry HTML
 ├── src/
-│   ├── main.js         # Three.js scene and game bootstrap
-│   └── (add Tripo/Seedance integration here)
-├── public/             # Static assets (e.g. generated .glb)
-├── .env.example        # Template for API keys
-└── README.md
+│   ├── main.js             # Phaser game config and bootstrap
+│   ├── scenes/
+│   │   ├── MenuScene.js    # Champion selection screen
+│   │   └── GameScene.js    # Main gameplay, city, and decorations
+│   └── entities/
+│       └── Character.js    # Player/NPC stats, movement, and UI
+├── assets/                 # Tilesets, god sprites
+│   ├── gods/               # God/goddess sprite sheets
+│   └── greeks_tileset/     # Terrain and building tilesets (32px)
+├── public/assets/          # Copied for Vercel deployment
+└── vite.config.js
 ```
 
 ## License
