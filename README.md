@@ -71,7 +71,12 @@ ChildrenofStyx/
 └── vite.config.js
 ```
 
-## Asset Credits
+## Credits
+
+- Designed by [Lipson Creative Media LLC](https://dlipsonmedia.com/)
+- Built for the SF Gen AI Game Jam, hosted by [Arcade AI](https://joinarcade.ai/) and sponsored by [Bytedance Seed](https://seed.bytedance.com/) and [Tripo AI](https://www.tripo3d.ai/)
+
+### Asset Credits
 
 - [Land of Pixels – Ancient Greeks Inspired Tileset](https://marceles.itch.io/land-of-pixels-ancient-greeks-inspired-tileset-top-down) by Marceles
 - [Greek Temple & Statue Assets](https://captainskolot.itch.io/greek-temple-statue-assets-pixelart-pixel-art-sprite-chest-pack-for-rpg-fant) by CaptainSkolot
