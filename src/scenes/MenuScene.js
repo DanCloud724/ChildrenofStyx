@@ -189,7 +189,8 @@ export class MenuScene extends Phaser.Scene {
             'Designed by Lipson Creative Media LLC\n\n' +
             'Built with Phaser 3 + Vite\n\n' +
             'Tileset: Land of Pixels – Ancient Greeks by Marceles\n' +
-            'Sprites: Greek Temple & Statue Assets by CaptainSkolot\n\n' +
+            'Sprites: Greek Temple & Statue Assets by CaptainSkolot\n' +
+            'God Sprites: Greek Gods by NexisGames\n\n' +
             'Built for the SF Gen AI Game Jam\n' +
             'Hosted by Arcade AI\n' +
             'Sponsored by Bytedance and Tripo AI';
