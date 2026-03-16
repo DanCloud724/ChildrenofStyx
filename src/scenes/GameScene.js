@@ -318,16 +318,16 @@ export class GameScene extends Phaser.Scene {
         // The river path connects consecutive waypoints with horizontal/vertical segments.
         // First/last waypoints sit on a stage edge so the river flows off-screen.
         const riverPaths = [
-            { w: 2, pts: [[-1,16],[25,16],[25,-1]] },                    // right edge → top
-            { w: 3, pts: [[W,5],[15,5],[15,H]] },                        // left edge → bottom
-            { w: 2, pts: [[30,-1],[30,10],[-1,10]] },                    // top → left edge
-            { w: 2, pts: [[8,H],[8,14],[W,14]] },                        // bottom → right edge
-            { w: 3, pts: [[W,3],[20,3],[20,12],[-1,12]] },               // right → left with bend
-            { w: 2, pts: [[12,-1],[12,8],[35,8],[35,H]] },               // top → bottom with bends
-            { w: 2, pts: [[-1,18],[18,18],[18,-1]] },                    // left → top
-            { w: 3, pts: [[W,20],[28,20],[28,6],[14,6],[14,H]] },        // right → bottom, S-curve
-            { w: 2, pts: [[-1,2],[10,2],[10,15],[W,15]] },               // left → right with bend
-            { w: 2, pts: [[22,-1],[22,11],[36,11],[36,H]] },             // top → bottom zigzag
+            { w: 1, pts: [[-1,16],[25,16],[25,-1]] },                    // left edge → top
+            { w: 2, pts: [[W,5],[15,5],[15,H]] },                        // right edge → bottom
+            { w: 1, pts: [[30,-1],[30,10],[-1,10]] },                    // top → left edge
+            { w: 1, pts: [[8,H],[8,14],[W,14]] },                        // bottom → right edge
+            { w: 2, pts: [[W,3],[20,3],[20,12],[-1,12]] },               // right → left with bend
+            { w: 1, pts: [[12,-1],[12,8],[35,8],[35,H]] },               // top → bottom with bends
+            { w: 1, pts: [[-1,18],[18,18],[18,-1]] },                    // left → top
+            { w: 2, pts: [[W,20],[28,20],[28,6],[14,6],[14,H]] },        // right → bottom, S-curve
+            { w: 1, pts: [[-1,2],[10,2],[10,15],[W,15]] },               // left → right with bend
+            { w: 1, pts: [[22,-1],[22,11],[36,11],[36,H]] },             // top → bottom zigzag
         ];
 
         const path = riverPaths[roundIndex % riverPaths.length];
@@ -410,13 +410,13 @@ export class GameScene extends Phaser.Scene {
             const worldY = cornerY - shopPixelH / 2;
             this.placeTilesInContainer(worldX, worldY, 'buildings', BUILDING_COLS, 1, 0, shopTilesW, shopTilesH);
         } else {
-            const templeTilesW = 5;
+            const templeTilesW = 6;
             const templeTilesH = 6;
             const templePixelW = templeTilesW * TILE_SIZE;
             const templePixelH = templeTilesH * TILE_SIZE;
             const worldX = cornerX - templePixelW / 2;
             const worldY = cornerY - templePixelH / 2;
-            this.placeTilesInContainer(worldX, worldY, 'buildings', BUILDING_COLS, 33, 2, templeTilesW, templeTilesH);
+            this.placeTilesInContainer(worldX, worldY, 'buildings', BUILDING_COLS, 32, 2, templeTilesW, templeTilesH);
         }
         this.buildingsPlacedCount[leading]++;
     }
