@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { Character } from '../entities/Character.js';
+import bgmUrl from '../assets/bgm.mp3?url';
 
 const INTERACT_DISTANCE = 40;
 
@@ -50,6 +51,8 @@ export class GameScene extends Phaser.Scene {
             frameWidth: 64, frameHeight: 64
         });
 
+        // Background music
+        this.load.audio('bgm', bgmUrl);
     }
 
     create(data) {
@@ -57,6 +60,16 @@ export class GameScene extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, this.scale.width, this.scale.height);
 
         this.createCity();
+
+        // Background music (looping)
+        if (!this.sound.get('bgm')) {
+            const bgm = this.sound.add('bgm', { loop: true, volume: 0 });
+            if (this.sound.locked) {
+                this.sound.once('unlocked', () => bgm.play());
+            } else {
+                bgm.play();
+            }
+        }
 
         // God/goddess animations (one idle anim per type)
         for (const type of NPC_TYPES) {

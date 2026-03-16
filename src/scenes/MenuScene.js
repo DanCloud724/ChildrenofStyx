@@ -31,10 +31,13 @@ export class MenuScene extends Phaser.Scene {
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
-        this.add.text(640, 140, 'Choose Your Champion', {
-            fontSize: '24px',
-            color: '#cccccc'
+        this.add.text(640, 140, 'You have just overthrown your father, the God Chronos,\nand have taken over the mortal world.', {
+            fontSize: '16px',
+            color: '#cccccc',
+            align: 'center',
+            lineSpacing: 6
         }).setOrigin(0.5);
+
 
         // Create idle animations
         for (const type of NPC_TYPES) {
@@ -50,7 +53,7 @@ export class MenuScene extends Phaser.Scene {
         // Character selection cards
         const spacing = 300;
         const startX = 640 - spacing;
-        const y = 380;
+        const y = 340;
 
         this.selected = null;
         this.cards = [];
@@ -100,8 +103,21 @@ export class MenuScene extends Phaser.Scene {
             this.cards.push({ card, type });
         }
 
+        this.add.text(640, 540, 'Under the guidance of the four children of the Goddess Styx,\nyou must guide the mortals to build your ideal society.', {
+            fontSize: '16px',
+            color: '#cccccc',
+            align: 'center',
+            lineSpacing: 6
+        }).setOrigin(0.5);
+
+        this.add.text(640, 590, 'Who will you follow? How will you rule?', {
+            fontSize: '18px',
+            color: '#ffd700',
+            fontStyle: 'italic'
+        }).setOrigin(0.5);
+
         // Start button (initially dimmed)
-        this.startButton = this.add.text(640, 580, 'Start Game', {
+        this.startButton = this.add.text(640, 640, 'Start Game', {
             fontSize: '28px',
             color: '#ffd700',
             fontStyle: 'bold',
@@ -120,5 +136,84 @@ export class MenuScene extends Phaser.Scene {
                 this.scene.start('GameScene', { playerType: this.selected });
             }
         });
+
+        // Tutorial button (top right)
+        const tutBtn = this.add.text(1230, 20, 'Tutorial', {
+            fontSize: '18px',
+            color: '#ffd700',
+            backgroundColor: '#2a2a4a',
+            padding: { x: 12, y: 6 }
+        }).setOrigin(1, 0).setInteractive({ useHandCursor: true });
+
+        tutBtn.on('pointerover', () => tutBtn.setColor('#ffffff'));
+        tutBtn.on('pointerout', () => tutBtn.setColor('#ffd700'));
+        tutBtn.on('pointerdown', () => this.showTutorial());
+    }
+
+    showTutorial() {
+        if (this.tutorialContainer) return;
+
+        const cx = 640, cy = 360;
+        const w = 700, h = 500;
+
+        this.tutorialContainer = this.add.container(0, 0).setDepth(100);
+
+        // Dim overlay
+        const overlay = this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.6)
+            .setInteractive();
+        this.tutorialContainer.add(overlay);
+
+        // Box background
+        const bg = this.add.rectangle(cx, cy, w, h, 0x1a1a2e)
+            .setStrokeStyle(3, 0xffd700);
+        this.tutorialContainer.add(bg);
+
+        // Title
+        const title = this.add.text(cx, cy - h / 2 + 30, 'How to Play', {
+            fontSize: '28px',
+            color: '#ffd700',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+        this.tutorialContainer.add(title);
+
+        // Gameplay text
+        const gameplay =
+            'Choose your champion — Zeus, Poseidon, or Athena\n\n' +
+            'Interact each round — pick a rival faction and choose Violence or Praise\n\n' +
+            'Stats drive outcomes — each character has four stats:\n' +
+            '  Nike (Fame) — Reputation and life force; game over if it hits 0.\n' +
+            '    Rises with wins and praise, falls with losses.\n' +
+            '  Zelus (Rivalry) — How tense/confrontational they are.\n' +
+            '    Raises the chance of violence. Falls when someone wins.\n' +
+            '  Kratos (Power) — Combat strength; decides who wins fights.\n' +
+            '    Only changes from winning fights or same-faction praise.\n' +
+            '  Bia (Violence) — Aggression; high Bia = less likely to accept\n' +
+            '    praise, more likely to choose Violence.\n\n' +
+            'Shape the city — the leading faction leaves its mark each round:\n' +
+            '  Zeus places temples | Poseidon carves rivers | Athena builds shops\n\n' +
+            'Win condition — after 10 rounds, the faction with the most buildings wins';
+
+        const body = this.add.text(cx, cy + 10, gameplay, {
+            fontSize: '14px',
+            color: '#cccccc',
+            align: 'left',
+            lineSpacing: 2,
+            wordWrap: { width: w - 60 }
+        }).setOrigin(0.5);
+        this.tutorialContainer.add(body);
+
+        // Red X close button
+        const closeBtn = this.add.text(cx + w / 2 - 20, cy - h / 2 + 10, 'X', {
+            fontSize: '24px',
+            color: '#ff3333',
+            fontStyle: 'bold'
+        }).setOrigin(0.5, 0).setInteractive({ useHandCursor: true });
+        closeBtn.on('pointerover', () => closeBtn.setColor('#ff6666'));
+        closeBtn.on('pointerout', () => closeBtn.setColor('#ff3333'));
+        closeBtn.on('pointerdown', () => {
+            this.tutorialContainer.destroy();
+            this.tutorialContainer = null;
+        });
+        this.tutorialContainer.add(closeBtn);
     }
 }
