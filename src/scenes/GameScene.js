@@ -308,19 +308,98 @@ export class GameScene extends Phaser.Scene {
         }
     }
 
+    placeWindingRiver(roundIndex) {
+        const W = Math.ceil(this.scale.width / TILE_SIZE);   // ~40
+        const H = Math.ceil(this.scale.height / TILE_SIZE);  // ~23
+        const WATER_FRAME = 8 * TERRAIN_COLS + 0; // solid blue water tile
+
+        // Each river is defined by waypoints [tileX, tileY] and a width (1-3).
+        // The river path connects consecutive waypoints with horizontal/vertical segments.
+        // First/last waypoints sit on a stage edge so the river flows off-screen.
+        const riverPaths = [
+            { w: 2, pts: [[-1,16],[25,16],[25,-1]] },                    // right edge → top
+            { w: 3, pts: [[W,5],[15,5],[15,H]] },                        // left edge → bottom
+            { w: 2, pts: [[30,-1],[30,10],[-1,10]] },                    // top → left edge
+            { w: 2, pts: [[8,H],[8,14],[W,14]] },                        // bottom → right edge
+            { w: 3, pts: [[W,3],[20,3],[20,12],[-1,12]] },               // right → left with bend
+            { w: 2, pts: [[12,-1],[12,8],[35,8],[35,H]] },               // top → bottom with bends
+            { w: 2, pts: [[-1,18],[18,18],[18,-1]] },                    // left → top
+            { w: 3, pts: [[W,20],[28,20],[28,6],[14,6],[14,H]] },        // right → bottom, S-curve
+            { w: 2, pts: [[-1,2],[10,2],[10,15],[W,15]] },               // left → right with bend
+            { w: 2, pts: [[22,-1],[22,11],[36,11],[36,H]] },             // top → bottom zigzag
+        ];
+
+        const path = riverPaths[roundIndex % riverPaths.length];
+        const halfW = Math.floor(path.w / 2);
+
+        // Collect all tile positions into a Set to avoid duplicates at corners
+        const tileSet = new Set();
+        const addTile = (tx, ty) => tileSet.add(`${tx},${ty}`);
+
+        for (let i = 0; i < path.pts.length - 1; i++) {
+            const [x0, y0] = path.pts[i];
+            const [x1, y1] = path.pts[i + 1];
+
+            if (y0 === y1) {
+                // Horizontal segment – width expands vertically
+                const minX = Math.min(x0, x1);
+                const maxX = Math.max(x0, x1);
+                for (let tx = minX; tx <= maxX; tx++) {
+                    for (let dy = -halfW; dy < -halfW + path.w; dy++) {
+                        addTile(tx, y0 + dy);
+                    }
+                }
+            } else {
+                // Vertical segment – width expands horizontally
+                const minY = Math.min(y0, y1);
+                const maxY = Math.max(y0, y1);
+                for (let ty = minY; ty <= maxY; ty++) {
+                    for (let dx = -halfW; dx < -halfW + path.w; dx++) {
+                        addTile(x0 + dx, ty);
+                    }
+                }
+            }
+        }
+
+        // Draw sandy shore borders (1 tile around each water tile)
+        const shoreSet = new Set();
+        for (const key of tileSet) {
+            const [tx, ty] = key.split(',').map(Number);
+            for (let dy = -1; dy <= 1; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                    const sk = `${tx + dx},${ty + dy}`;
+                    if (!tileSet.has(sk)) shoreSet.add(sk);
+                }
+            }
+        }
+        for (const key of shoreSet) {
+            const [tx, ty] = key.split(',').map(Number);
+            if (tx < -1 || tx > W + 1 || ty < -1 || ty > H + 1) continue;
+            const shore = this.add.rectangle(
+                tx * TILE_SIZE + TILE_SIZE / 2, ty * TILE_SIZE + TILE_SIZE / 2,
+                TILE_SIZE, TILE_SIZE, 0xc2a060, 1
+            ).setDepth(-1);
+            this.factionDecorationContainer.add(shore);
+        }
+
+        // Place water tiles
+        for (const key of tileSet) {
+            const [tx, ty] = key.split(',').map(Number);
+            if (tx < -1 || tx > W + 1 || ty < -1 || ty > H + 1) continue;
+            const img = this.add.image(
+                tx * TILE_SIZE, ty * TILE_SIZE,
+                'terrain', WATER_FRAME
+            ).setOrigin(0, 0);
+            this.factionDecorationContainer.add(img);
+        }
+    }
+
     addOneFactionDecoration(roundIndex) {
         const leading = this.getLeadingFaction();
         const { x: cornerX, y: cornerY } = this.getDecorationPositionForIndex(roundIndex);
 
         if (leading === 'poseidon') {
-            const riverTilesW = 5;
-            const riverTilesH = 2;
-            const riverPixelW = riverTilesW * TILE_SIZE;
-            const riverPixelH = riverTilesH * TILE_SIZE;
-            const worldX = cornerX - riverPixelW / 2;
-            const worldY = cornerY - riverPixelH / 2;
-            const RIVER_BLUE = 0x4488dd;
-            this.placeTilesInContainer(worldX, worldY, 'terrain', TERRAIN_COLS, 0, 0, riverTilesW, riverTilesH, RIVER_BLUE);
+            this.placeWindingRiver(roundIndex);
         } else if (leading === 'athena') {
             const shopTilesW = 5;
             const shopTilesH = 4;
