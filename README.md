@@ -8,7 +8,7 @@ You have just overthrown your father, the God Chronos, and have taken over the m
 
 ## Gameplay
 
-- **Choose your champion** — Zeus, Poseidon, or Athena
+- **Choose your faction** — Zeus, Poseidon, or Athena
 - **Interact each round** — pick a rival faction and choose Violence or Praise
 - **Stats drive outcomes** — each character has four stats named after the children of the river Styx:
   - **Nike (Fame)** — Reputation and life force; game over if the player's hits 0. Rises with wins and praise, falls with losses.

@@ -137,13 +137,13 @@ export class MenuScene extends Phaser.Scene {
             }
         });
 
-        // Tutorial button (top right)
-        const tutBtn = this.add.text(1230, 20, 'Tutorial', {
-            fontSize: '18px',
+        // How to Play button (below Start Game)
+        const tutBtn = this.add.text(640, 690, 'How to Play', {
+            fontSize: '16px',
             color: '#ffd700',
             backgroundColor: '#2a2a4a',
             padding: { x: 12, y: 6 }
-        }).setOrigin(1, 0).setInteractive({ useHandCursor: true });
+        }).setOrigin(0.5).setInteractive({ useHandCursor: true });
 
         tutBtn.on('pointerover', () => tutBtn.setColor('#ffffff'));
         tutBtn.on('pointerout', () => tutBtn.setColor('#ffd700'));
@@ -178,7 +178,7 @@ export class MenuScene extends Phaser.Scene {
 
         // Gameplay text
         const gameplay =
-            'Choose your champion — Zeus, Poseidon, or Athena\n\n' +
+            'Choose your faction — Zeus, Poseidon, or Athena\n\n' +
             'Interact each round — pick a rival faction and choose Violence or Praise\n\n' +
             'Stats drive outcomes — each character has four stats:\n' +
             '  Nike (Fame) — Reputation and life force; game over if it hits 0.\n' +

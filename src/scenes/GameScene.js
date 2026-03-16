@@ -732,6 +732,8 @@ export class GameScene extends Phaser.Scene {
         playAgainBtn.on('pointerover', () => playAgainBtn.setStrokeStyle(2, 0x88ff88));
         playAgainBtn.on('pointerout', () => playAgainBtn.setStrokeStyle(2, 0x44ff44));
         playAgainBtn.on('pointerdown', () => this.scene.start('MenuScene'));
+
+        this.addEndScreenCredits(cx, cy);
     }
 
     triggerGameOver() {
@@ -771,6 +773,22 @@ export class GameScene extends Phaser.Scene {
         playAgainBtn.on('pointerover', () => playAgainBtn.setStrokeStyle(2, 0x88ff88));
         playAgainBtn.on('pointerout', () => playAgainBtn.setStrokeStyle(2, 0x44ff44));
         playAgainBtn.on('pointerdown', () => this.scene.start('MenuScene'));
+
+        this.addEndScreenCredits(cx, cy);
+    }
+
+    addEndScreenCredits(cx, cy) {
+        const creditsText =
+            'Designed by Lipson Creative Media LLC\n\n' +
+            'Tileset: Land of Pixels – Ancient Greeks by Marceles\n' +
+            'Sprites: Greek Temple & Statue Assets by CaptainSkolot';
+
+        this.add.text(cx, cy + 160, creditsText, {
+            fontSize: '13px',
+            color: '#aaaaaa',
+            align: 'center',
+            lineSpacing: 4
+        }).setOrigin(0.5).setDepth(401);
     }
 
     showChoiceUI(player, npc) {
