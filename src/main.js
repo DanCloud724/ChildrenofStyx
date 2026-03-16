@@ -6,7 +6,7 @@ const config = {
     type: Phaser.AUTO,
     backgroundColor: '#1a1a2e',
     scale: {
-        mode: Phaser.Scale.ENVELOP,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         parent: 'game',
         width: 1280,
