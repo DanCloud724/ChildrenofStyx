@@ -49,6 +49,9 @@ export class GameScene extends Phaser.Scene {
         this.load.spritesheet('athena', 'assets/gods/Sprites/GoddessAthena-Sheet.png', {
             frameWidth: 64, frameHeight: 64
         });
+
+        // Background music
+        this.load.audio('bgm', 'assets/ancient-drum-loop.mp3');
     }
 
     create(data) {
@@ -56,6 +59,11 @@ export class GameScene extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, this.scale.width, this.scale.height);
 
         this.createCity();
+
+        // Background music (low volume, looping)
+        if (!this.sound.get('bgm')) {
+            this.sound.add('bgm', { loop: true, volume: 0.15 }).play();
+        }
 
         // God/goddess animations (one idle anim per type)
         for (const type of NPC_TYPES) {
